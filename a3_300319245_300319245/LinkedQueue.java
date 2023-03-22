@@ -1,3 +1,5 @@
+import javax.management.RuntimeErrorException;
+
 /**
  * @author Marcel Turcotte, Guy-Vincent Jourdan and Mehrdad Sabetzadeh
  *         (University of Ottawa)
@@ -21,6 +23,7 @@ public class LinkedQueue<D> implements Queue<D> {
 		}
 	}
 
+	private int size = 0;
 	private Elem<D> front;
 	private Elem<D> rear;
 
@@ -40,6 +43,7 @@ public class LinkedQueue<D> implements Queue<D> {
 			// to be the norm
 		}
 
+		size++;
 		Elem<D> newElem;
 		newElem = new Elem<D>(newElement, null);
 		if (isEmpty()) {
@@ -57,6 +61,7 @@ public class LinkedQueue<D> implements Queue<D> {
 			throw new IllegalStateException("Dequeue method called on an empty queue");
 		}
 
+		size--;
 		D returnedValue;
 		returnedValue = front.value;
 
@@ -74,7 +79,7 @@ public class LinkedQueue<D> implements Queue<D> {
 	}
 
 	public int size() {
-		
+		return size;
 	}
 
 	public String toString() {

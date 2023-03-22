@@ -103,7 +103,7 @@ public class ParkingLot {
 	public int getOccupancy() {
 		int count = 0;
 		for(int i = 0; i< capacity;i++){
-			if(occupancy.get(i) instanceof Spot){
+			if(occupancy.get(i) != null){
 				count ++;
 			}
 		}
