@@ -69,13 +69,13 @@ public class Simulator {
 	 * @param lot   is the parking lot to be simulated
 	 * @param steps is the total number of steps for simulation
 	 */
-	public Simulator(ParkingLot lot, int perHourArrivalRate, int steps) {
+	public Simulator(ParkingLot lot, int perHourArrivalRate) {
 	
 		this.lot = lot;
 
 		this.probabilityOfArrivalPerSec = new Rational(perHourArrivalRate, 3600);
 
-		this.steps = steps;
+		this.steps = SIMULATION_DURATION;
 
 		this.clock = 0;
 
@@ -90,6 +90,38 @@ public class Simulator {
 	 * NOTE: Make sure your implementation of simulate() uses peek() from the Queue interface.
 	 */
 	public void simulate() {
+		clock = 0;
+		steps = SIMULATION_DURATION;
+
+		while(clock<= steps){
+			if(RandomGenerator.eventOccurred(probabilityOfArrivalPerSec)){
+				//System.out.println("car made");
+				incomingQueue.enqueue(new Spot(new Car(RandomGenerator.generateRandomString(PLATE_NUM_LENGTH)), clock));
+			}
+
+			for(int i = 0; i < lot.getOccupancy(); i++){
+				if((clock-lot.getSpotAt(i).getTimestamp()) == MAX_PARKING_DURATION){
+					outgoingQueue.enqueue(lot.remove(i));
+					//System.out.println(incomingQueue.size());
+				}
+				else if(RandomGenerator.eventOccurred(departurePDF.pdf(clock-lot.getSpotAt(i).getTimestamp()))){
+						outgoingQueue.enqueue(lot.remove(i));
+						//System.out.println(incomingQueue.size());
+					}
+			}
+			if(!incomingQueue.isEmpty()){
+				if(lot.attemptParking(incomingQueue.peek().getCar(), clock)){
+					//System.out.println(incomingQueue.size());
+					lot.park(incomingQueue.dequeue().getCar(), clock);
+				}
+			}
+			if(!outgoingQueue.isEmpty()){
+				outgoingQueue.dequeue();
+			}
+			clock++;
+		}
+
+		/*
 		Spot incomingToProcess = null;
 		
 		while(clock<steps){
@@ -126,19 +158,24 @@ public class Simulator {
 				boolean isProcessed = lot.attemptParking(incomingToProcess.getCar(), clock);
 
 				if (isProcessed) {
+					System.out.println(incomingToProcess.getCar() + " ENTERED at timestep " + clock
+							+ "; occupancy is at " + lot.getOccupancy());
 					incomingToProcess = null;
 				}
 
-			} else if (!incomingQueue.isEmpty()) {
+			} 
+			else if (!incomingQueue.isEmpty()) {
 				incomingToProcess = incomingQueue.dequeue();
 			}
 
 			if (!outgoingQueue.isEmpty()) {
 				Spot leaving = outgoingQueue.dequeue();
+				System.out.println(leaving.getCar() + " EXITED at timestep " + clock + "; occupancy is at "
+						+ lot.getOccupancy());
 			}
 
 			clock++;
-		}	
+		}	*/
 	}
 
 	public int getIncomingQueueSize() {

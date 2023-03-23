@@ -7,22 +7,28 @@ public class CapacityOptimizer {
 		double lowest = 1000;
 		int low = 0;
 		double avg = 0;
-		for(int i = 1; i<=hourlyRate;i++){
-			System.out.println("==== Setting lot capacity to: "+i+"====");
+		int cap = 1;
+		
+		while(true){
+			System.out.println("==== Setting lot capacity to: "+cap+"====");
 			for(int j = 1; j <= NUM_RUNS; j++){
-				ParkingLot Lot = new ParkingLot(1000);
-				Simulator sim = new Simulator(Lot, hourlyRate, 86400);
-				long timer = System.currentTimeMillis();
+				Simulator sim = new Simulator(new ParkingLot(cap),hourlyRate);
+				long startTime = System.currentTimeMillis();
 				sim.simulate();
+				long timer = System.currentTimeMillis() - startTime;
 				System.out.println("Simulation run "+ j +" ("+ timer+"ms); Queue length at the end of simulation run: "+sim.getIncomingQueueSize()+"");
 				avg += (double)sim.getIncomingQueueSize();
 			}
 			avg = avg/10;
 			if(avg< lowest){
-				low = i;
+				low = cap;
 				lowest = avg;
 			}
+			if(avg <= 5){
+				break;
+			}
 			avg = 0;
+			cap++;
 		}
 		return low;
 	
