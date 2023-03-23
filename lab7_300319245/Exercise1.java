@@ -31,7 +31,21 @@ public class Exercise1 {
         try{
             throwException(exceptionNumber);
         }
-        // YOUR CODE HERE
+        catch(ArrayIndexOutOfBoundsException e){
+            return "ArrayIndexOutOfBoundsException";
+        }
+        catch(IOException e){
+            return "IOException";
+        }
+        catch(IllegalArgumentException e){
+            return "IllegalArgumentException";
+        }
+        catch(NullPointerException e){
+            return "NullPointerException";
+        }
+        catch(Exception e){
+            return "Exception";
+        }
         return "NoException";
     }
 
