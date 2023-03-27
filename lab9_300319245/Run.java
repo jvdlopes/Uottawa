@@ -7,10 +7,10 @@ public class Run {
     public static void displayStudentInfo( ) {
 
         System.out.println( "************************************************************" );
-        System.out.println( "*                                                          *" );
-        System.out.println( "*                                                          *" );
-        System.out.println( "*                                                          *" );
-        System.out.println( "*                                                          *" );
+        System.out.println( "*John Lopes                                                *" );
+        System.out.println( "*300319245                                                 *" );
+        System.out.println( "*Course code: ITI1121                                      *" );
+        System.out.println( "*Lab Section: A-03                                         *" );
         System.out.println( "************************************************************" );
         System.out.println();
 

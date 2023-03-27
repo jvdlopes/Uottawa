@@ -98,9 +98,36 @@ public class PlayList {
     }
 
     public static PlayList getSongsFromFile( String fileName ) throws IOException {
-        throw new UnsupportedOperationException("PlayList getSongsFromFile not implemented");
-        // YOUR CODE HERE (remove the exception)
+        //String csvFile = "/Users/Johnny/Documents/GitHub/Uottawa/lab9_300319245/songs.csv";
+        BufferedReader br = null;
+        String line = "";
 
+        try {
+            br = new BufferedReader(new FileReader(fileName));
+            while ((line = br.readLine()) != null) {
+            String[] songParts = line.split(":");
+
+            System.out.println("Title " + songParts[0] + " , Artist " + songParts[1] + " Album " + songParts[2]);
+            }
+        } 
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+        } 
+        finally {
+            if (br != null) {
+            try {
+                br.close();
+                } 
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        PlayList p = new PlayList();
+        return p;
     }
 
     public void writeSongsToFile( String fileName ) throws IOException {
@@ -123,7 +150,7 @@ public class PlayList {
         }
         return true;
     }
-
+    
 
     public String toString(){
         String result = "PlayList:\n";
