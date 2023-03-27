@@ -4,16 +4,49 @@ public class SecretMessage {
 
     public static void encrypt( String inputFilem, String outputFile, int key ) throws IOException, FileNotFoundException {
 
-        InputStreamReader input = null;
-		OutputStreamWriter out = null;
-        throw new UnsupportedOperationException("SecretMessage encrypt not implemented");
-        // YOUR CODE HERE (remove the exception)
+        InputStreamReader input = new InputStreamReader( new FileInputStream( inputFilem ) );
+		OutputStreamWriter out = new OutputStreamWriter( new FileOutputStream( outputFile ) );
+        char[] buffer = new char[256];
+        
+        int i;
+        int j = 0;
+        
+        while ( ( i = input.read() ) != -1 ) {
+            buffer[j] = (char)(i +key);
+            j++;
+        }
+        char[] message = new char[j];
+        for(int x = 0; x< j; x++){
+            message[x] = buffer[x];
+        }
 
-    }
+        input.close();
+        out.write(message);
+        out.close();
+        }
+
+
 	
 	public static void decrypt( String inputFilem, String outputFile, int key ) throws IOException, FileNotFoundException {
-        throw new UnsupportedOperationException("SecretMessage decrypt not implemented");
-        // YOUR CODE HERE (remove the exception)
+        InputStreamReader input = new InputStreamReader( new FileInputStream( inputFilem ) );
+		OutputStreamWriter out = new OutputStreamWriter( new FileOutputStream( outputFile ) );
+        char[] buffer = new char[256];
+        
+        int i;
+        int j = 0;
+        
+        while ( ( i = input.read() ) != -1 ) {
+            buffer[j] = (char)(i -key);
+            j++;
+        }
+        char[] message = new char[j];
+        for(int x = 0; x< j; x++){
+            message[x] = buffer[x];
+        }
+
+        input.close();
+        out.write(message);
+        out.close();
 
     }
 
