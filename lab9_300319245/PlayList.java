@@ -98,16 +98,16 @@ public class PlayList {
     }
 
     public static PlayList getSongsFromFile( String fileName ) throws IOException {
-        //String csvFile = "/Users/Johnny/Documents/GitHub/Uottawa/lab9_300319245/songs.csv";
         BufferedReader br = null;
         String line = "";
-
+        PlayList p = new PlayList();
         try {
             br = new BufferedReader(new FileReader(fileName));
             while ((line = br.readLine()) != null) {
             String[] songParts = line.split(":");
-
-            System.out.println("Title " + songParts[0] + " , Artist " + songParts[1] + " Album " + songParts[2]);
+            Song s = new Song(songParts[0], songParts[1], songParts[2]);
+            p.addSong(s);
+            
             }
         } 
         catch (FileNotFoundException e) {
@@ -126,13 +126,16 @@ public class PlayList {
                 }
             }
         }
-        PlayList p = new PlayList();
         return p;
     }
 
     public void writeSongsToFile( String fileName ) throws IOException {
-        throw new UnsupportedOperationException("PlayList writeSongsToFile not implemented");
-        // YOUR CODE HERE (remove the exception)
+        OutputStreamWriter out = new OutputStreamWriter( new FileOutputStream( fileName ) );
+        for(int i =0; i<songs.length; i++){
+            Song s = songs[i];
+                out.write(s.getName()+":"+s.getArtist()+":"+s.getAlbum()+"\n");
+        }
+        out.close();
 
     }
 
