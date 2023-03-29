@@ -25,27 +25,73 @@ public class OrderedList implements OrderedStructure {
 
     public OrderedList() {
         // Your code here.
-        throw new UnsupportedOperationException( "not implemented yet!" );
+        //throw new UnsupportedOperationException( "not implemented yet!" );
     }
 
     // Calculates the size of the list
 
     public int size() {
-      	// Remove line below and add your implementation.
-        throw new UnsupportedOperationException( "not implemented yet!" );
+        Node traverse = head;
+        int ans = 1;
+        if(head == null){
+            return 0;
+        }
+        while(traverse.next != null){
+            traverse = traverse.next;
+            ans++;
+        }
+        return ans;
     }
 
 
     public Object get( int pos ) {
-        // Remove line below and add your implementation.
-        throw new UnsupportedOperationException( "not implemented yet!" );
+        Node traverse = head;
+        for(int i = 1; i <= pos; i++){
+            traverse = traverse.next;
+        }
+        return traverse;
     }
 
     // Adding an element while preserving the order
 
     public boolean add( Comparable o ) {
-        // Remove line below and add your implementation.
-        throw new UnsupportedOperationException( "not implemented yet!" );
+        Node traverse;
+        if(head == null){
+            head = new Node(o, null, null);
+        }
+        else{
+            int compared = head.value.compareTo(o);
+            if(compared < 0){
+                traverse = head;
+                while(traverse.next != null){
+                    if(traverse.next.value.compareTo(o)<0){
+                        traverse = traverse.next;
+                    }
+                    else{
+                        break;
+                    }
+                }
+                Node n = new Node(o, null, traverse.next);
+                if(traverse.next == null){
+                    traverse.next = n;
+                    n.previous = traverse;
+                    return true;
+                }
+                else{
+                    n.next.previous = n;
+                    traverse.next = n;
+                    n.previous = traverse;
+                    return true;
+                }
+            }
+            else{
+                Node n = new Node(o, null, head);
+                    n.next.previous = n;
+                    head = n;
+                    return true;
+            }
+        }
+        return false;
     }
 
     //Removes one item from the position pos.

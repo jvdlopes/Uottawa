@@ -25,7 +25,7 @@ public interface OrderedStructure {
      */
 
     public abstract boolean add(Comparable element) throws IllegalArgumentException;
-
+    
     /** 
      * Returns the element at the specified position; the first
      * element has the index 0.
