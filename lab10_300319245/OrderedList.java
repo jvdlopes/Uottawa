@@ -45,17 +45,23 @@ public class OrderedList implements OrderedStructure {
 
 
     public Object get( int pos ) {
+        if(pos <0 || pos > this.size()){
+            throw new IndexOutOfBoundsException();
+        }
         Node traverse = head;
-        for(int i = 1; i <= pos; i++){
+        for(int i = 0; i < pos; i++){
             traverse = traverse.next;
         }
-        return traverse;
+        return traverse.value;
     }
 
     // Adding an element while preserving the order
 
     public boolean add( Comparable o ) {
         Node traverse;
+        if(o == null){
+            throw new IllegalArgumentException();
+        }
         if(head == null){
             head = new Node(o, null, null);
         }
@@ -97,15 +103,35 @@ public class OrderedList implements OrderedStructure {
     //Removes one item from the position pos.
 
     public void remove( int pos ) {
-      // Remove line below and add your implementation.
-      throw new UnsupportedOperationException( "not implemented yet!" );
+        if(pos <0 || pos > this.size()){
+            throw new IndexOutOfBoundsException();
+        }
+        Node traverse = head;
+        if(pos == 0){
+            head = head.next;
+        }
+        else{
+            for(int i = 1; i <= pos; i++){
+            traverse = traverse.next;
+            }
+            if(traverse.next != null){
+                traverse.next.previous = traverse.previous;
+            }
+            
+            traverse.previous.next = traverse.next;
+        }
+        
     }
 
     // Knowing that both lists store their elements in increasing
     // order, both lists can be traversed simultaneously.
 
     public void merge( OrderedList other ) {
-      // Remove line below and add your implementation.
-      throw new UnsupportedOperationException( "not implemented yet!" );
+        Node temp = other.head;
+        while(temp != null){
+            System.out.println("works");
+            this.add(temp.value);
+            temp = temp.next;
+        }
     }
 }
