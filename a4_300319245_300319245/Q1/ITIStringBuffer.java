@@ -1,19 +1,28 @@
+import javax.lang.model.element.Element;
+
+
 public class ITIStringBuffer {
+    
+    SinglyLinkedList list = new SinglyLinkedList<String>();
 
     public ITIStringBuffer() {
-        throw new UnsupportedOperationException( "replace with your implementation" );
     }
 
     public ITIStringBuffer(String  firstString){
-        throw new UnsupportedOperationException( "replace with your implementation" );
+        list.addFirst(firstString);
     }
 
     public void append(String nextString){
-        throw new UnsupportedOperationException( "replace with your implementation" );
+        list.add(nextString);
     }
 
     public String toString(){
-        throw new UnsupportedOperationException( "replace with your implementation" );
+        public String(char[] "");
+        String ans = "";
+        for(Object x:list){
+            ans = ans +(String)x;
+        }
+        return ans;
     }
 
 }
