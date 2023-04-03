@@ -3,7 +3,7 @@ import javax.lang.model.element.Element;
 
 public class ITIStringBuffer {
     
-    SinglyLinkedList list = new SinglyLinkedList<String>();
+    SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 
     public ITIStringBuffer() {
     }
@@ -17,12 +17,24 @@ public class ITIStringBuffer {
     }
 
     public String toString(){
-        public String(char[] "");
-        String ans = "";
-        for(Object x:list){
-            ans = ans +(String)x;
+        //public String(char[] "");
+        char[] ans;
+        char[] temp;
+        int length = 0;
+        for(String x:list){
+            length += x.length();
         }
-        return ans;
+
+        ans = new char[length];
+        int prev =0;
+        for(String x:list){
+            temp = x.toCharArray();
+            for(int i = 0; i< temp.length;i++){
+                ans[i+prev] = temp[i];
+            }
+            prev +=temp.length;
+        }
+        return ans.toString();
     }
 
 }
