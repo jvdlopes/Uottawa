@@ -5,36 +5,52 @@ public class ITIStringBuffer {
     
     SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 
+    boolean call = false;
+    String last = "";
     public ITIStringBuffer() {
     }
 
     public ITIStringBuffer(String  firstString){
-        list.addFirst(firstString);
+        call = false;
+        last = firstString;
     }
 
     public void append(String nextString){
         list.add(nextString);
+        call = true;
     }
 
     public String toString(){
-        //public String(char[] "");
-        char[] ans;
-        char[] temp;
-        int length = 0;
-        for(String x:list){
-            length += x.length();
-        }
+        if(call){
+            char[] temp;
+            char[] ans;
+            int length = 0;
 
-        ans = new char[length];
-        int prev =0;
-        for(String x:list){
-            temp = x.toCharArray();
-            for(int i = 0; i< temp.length;i++){
-                ans[i+prev] = temp[i];
+            for (String x: list) {
+                length += x.length();
             }
-            prev +=temp.length;
-        }
-        return ans.toString();
-    }
+            length += last.length();
+            
+            ans = new char[length];
+            for (int i = 0; i < last.length(); i++)
+            {
+                ans[i] = last.charAt(i);
+            }
+            int i = last.length();
 
+            for (String x: list) {
+                temp = x.toCharArray();
+                for (int j = 0; j < temp.length; j++) {
+                    ans[i+j] = temp[j];
+                } 
+                i += temp.length;
+            }
+
+            last = new String(ans);
+            list = new SinglyLinkedList<>();
+            call = false;
+        }
+
+        return last;
+    }
 }
