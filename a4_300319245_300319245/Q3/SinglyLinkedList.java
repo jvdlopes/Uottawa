@@ -3,7 +3,28 @@ import java.util.*;
 public class SinglyLinkedList<E> implements List<E>, Iterable<E> {
 
     public int count(E fromElement, E toElement) {
-        throw new UnsupportedOperationException("replace with your implementation");
+        if(fromElement == null){
+            return 0;
+        }
+        else if(fromElement.equals(toElement)){
+            return 1;
+        }
+        return  count( head, fromElement, toElement, 0);
+    }
+
+    private int  count(Node<E> p, E fromElement, E toElement, int count){
+        if(p == null){
+            return count;
+        }
+        if(p.value.equals(toElement) && count>0){
+            return count+1;
+        }
+        else if(p.value.equals(fromElement) || count >0){
+            return count(p.next,fromElement,toElement,count+1);
+        }
+        else{
+            return count(p.next,fromElement,toElement,count);
+        }
     }
 
     private static class Node<T> {
