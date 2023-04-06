@@ -28,19 +28,23 @@ public class BitList {
     }
 
     public BitList( String s ) {
+        BitListIterator list = new BitListIterator();
         if(s.equals("")){
             return;
         }
-        char[] list =s.toCharArray();
-        for(char x : list){
+        char[] charList =s.toCharArray();
+        for(char x : charList){
             if(!(x=='1' || x=='0')){
                 throw new IllegalArgumentException();
             }
         }
-        this.addFirst(list[list.length-1]);
-        Node temp;
-        for(int x = list.length-2; x>=0; x++){
-            
+        for(int x = charList.length-1; x>=0; x--){
+            if(charList[x] == '1'){
+                list.add(1);
+            }
+            if(charList[x] == '0'){
+                list.add(0);
+            }
         }
     }
 
